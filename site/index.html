@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>VIE Projecten</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Laden -->
+  <main id="scherm-laden" class="midden">
+    <p class="zacht" id="laden-tekst">Even laden...</p>
+  </main>
+
+  <!-- Inloggen -->
+  <main id="scherm-inloggen" class="midden" hidden>
+    <div class="kaart">
+      <p class="merk">VIE <span>Projecten</span></p>
+      <h1>Inloggen</h1>
+      <p class="zacht">Vul je VIE-mailadres in. Je krijgt een mail met een inloglink.</p>
+      <p class="melding" id="inlog-melding" hidden></p>
+      <form id="inlog-form" novalidate>
+        <label for="email">E-mailadres</label>
+        <input id="email" type="email" autocomplete="email" placeholder="naam@viepeople.com" required>
+        <button type="submit" id="inlog-knop">Stuur inloglink</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Link verstuurd -->
+  <main id="scherm-verstuurd" class="midden" hidden>
+    <div class="kaart">
+      <p class="merk">VIE <span>Projecten</span></p>
+      <h1>Check je mail</h1>
+      <p>Als <strong id="verstuurd-email"></strong> toegang heeft, staat er zo een inloglink in je inbox. Kijk ook even in je spam.</p>
+      <p class="zacht">De link werkt één keer en is een uur geldig.</p>
+      <button type="button" class="knop-licht" id="opnieuw-knop">Ander adres proberen</button>
+    </div>
+  </main>
+
+  <!-- Geen toegang -->
+  <main id="scherm-geen-toegang" class="midden" hidden>
+    <div class="kaart">
+      <p class="merk">VIE <span>Projecten</span></p>
+      <h1>Geen toegang</h1>
+      <p>Je bent ingelogd als <strong id="geen-toegang-email"></strong>, maar dit adres staat niet op de lijst.</p>
+      <p class="zacht">Denk je dat dit niet klopt? Vraag Ryan om toegang.</p>
+      <button type="button" class="knop-licht" data-uitloggen>Uitloggen</button>
+    </div>
+  </main>
+
+  <!-- De site -->
+  <div id="scherm-app" hidden>
+    <header class="balk">
+      <div class="balk-binnen">
+        <p class="merk merk-licht">VIE <span>Projecten</span></p>
+        <nav>
+          <a href="#/bouwen" data-route="bouwen">Wat we bouwen</a>
+          <a href="#/roadmap" data-route="roadmap">Roadmap</a>
+        </nav>
+        <div class="gebruiker">
+          <span id="gebruiker"></span>
+          <button type="button" class="knop-link" data-uitloggen>Uitloggen</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="inhoud">
+      <section id="pagina-bouwen" hidden>
+        <h1>Wat we bouwen</h1>
+        <p class="zacht">Inhoud volgt in stap 3.</p>
+        <p class="status" data-status></p>
+      </section>
+
+      <section id="pagina-roadmap" hidden>
+        <h1>Roadmap</h1>
+        <p class="zacht">Inhoud volgt in stap 4.</p>
+        <p class="status" data-status></p>
+      </section>
+    </main>
+  </div>
+
+  <script src="vendor/supabase-2.117.2.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

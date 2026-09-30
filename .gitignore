@@ -1,0 +1,5 @@
+.DS_Store
+*.log
+node_modules/
+# Gastenlijst en andere lokale SQL met persoonsgegevens nooit committen
+*gastenlijst*.sql

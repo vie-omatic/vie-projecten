@@ -1,0 +1,97 @@
+/* VIE Projecten: huisstijl VIE (crème, donkerblauw, rood, Lato). Lettertype staat lokaal, geen externe bronnen. */
+@font-face { font-family: 'Lato'; font-weight: 400; font-style: normal; font-display: swap; src: url('fonts/lato-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Lato'; font-weight: 700; font-style: normal; font-display: swap; src: url('fonts/lato-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Lato'; font-weight: 900; font-style: normal; font-display: swap; src: url('fonts/lato-latin-900-normal.woff2') format('woff2'); }
+
+:root {
+  --creme: #FFFAF5;
+  --blauw: #262F3B;
+  --rood: #F32A49;
+  --grijs: #6B7280;
+  --lijn: #E7E1DA;
+  --wit: #FFFFFF;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html, body { margin: 0; }
+body {
+  font-family: 'Lato', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--creme);
+  color: var(--blauw);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 { font-weight: 900; font-size: 1.75rem; line-height: 1.2; margin: 0 0 0.5rem; }
+p { margin: 0 0 0.9rem; }
+.zacht { color: var(--grijs); }
+.status { font-size: 0.9rem; color: var(--grijs); border-left: 3px solid var(--lijn); padding-left: 0.75rem; }
+
+/* Merk */
+.merk { font-weight: 900; font-size: 1.05rem; letter-spacing: 0.01em; margin: 0 0 1.25rem; }
+.merk span { color: var(--rood); }
+.merk-licht { color: var(--wit); margin: 0; }
+
+/* Inlog- en meldingsschermen */
+.midden { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px 16px; }
+.kaart {
+  width: 100%; max-width: 420px;
+  background: var(--wit);
+  border: 1px solid var(--lijn);
+  border-radius: 14px;
+  padding: 32px 28px;
+  box-shadow: 0 8px 24px rgba(38, 47, 59, 0.06);
+}
+label { display: block; font-weight: 700; font-size: 0.9rem; margin: 0.25rem 0 0.35rem; }
+input[type=email] {
+  width: 100%; font: inherit; color: inherit;
+  padding: 11px 12px; border: 1px solid var(--lijn); border-radius: 8px; background: var(--wit);
+}
+input[type=email]:focus { outline: 2px solid var(--blauw); outline-offset: 1px; border-color: var(--blauw); }
+
+button { font: inherit; cursor: pointer; }
+button:disabled { opacity: 0.6; cursor: default; }
+#inlog-knop {
+  width: 100%; margin-top: 14px;
+  background: var(--rood); color: var(--wit);
+  border: 0; border-radius: 8px; padding: 12px 16px; font-weight: 700;
+}
+.knop-licht {
+  background: transparent; color: var(--blauw);
+  border: 1px solid var(--lijn); border-radius: 8px; padding: 9px 14px; font-weight: 700;
+}
+.knop-link { background: none; border: 0; color: inherit; padding: 0; text-decoration: underline; text-underline-offset: 3px; }
+
+.melding {
+  background: #FDECEF; color: #8A1024;
+  border-radius: 8px; padding: 10px 12px; font-size: 0.92rem;
+}
+
+/* Balk bovenaan */
+.balk { background: var(--blauw); color: var(--wit); }
+.balk-binnen {
+  max-width: 1080px; margin: 0 auto; padding: 14px 16px;
+  display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+}
+.balk nav { display: flex; gap: 20px; flex: 1; }
+.balk nav a {
+  color: rgba(255, 255, 255, 0.78); text-decoration: none; font-weight: 700;
+  padding: 4px 0; border-bottom: 2px solid transparent;
+}
+.balk nav a:hover { color: var(--wit); }
+.balk nav a.actief { color: var(--wit); border-bottom-color: var(--rood); }
+.gebruiker { font-size: 0.88rem; color: rgba(255, 255, 255, 0.78); display: flex; gap: 12px; align-items: center; }
+.gebruiker .knop-link { color: var(--wit); }
+
+/* Inhoud */
+.inhoud { max-width: 1080px; margin: 0 auto; padding: 32px 16px 64px; }
+
+@media (max-width: 640px) {
+  .balk-binnen { gap: 10px 16px; }
+  .balk nav { order: 3; flex-basis: 100%; }
+  .gebruiker #gebruiker { display: none; }
+  .kaart { padding: 26px 20px; }
+}

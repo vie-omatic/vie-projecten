@@ -1,0 +1,3 @@
+# Netlify publiceert alleen de map site/. docs/ en supabase/ blijven buiten de website.
+[build]
+  publish = "site"
