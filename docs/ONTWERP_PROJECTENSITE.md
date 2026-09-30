@@ -1,6 +1,6 @@
 # Ontwerp: VIE Projecten (teamsite)
 
-Stand 30 september 2026. Status: ontwerp vastgesteld, stap 0 afgerond, stap 1 klaar om uit te voeren.
+Stand 30 september 2026. Status: stap 0 t/m 2 live, stap 3 (pagina Wat we bouwen) opgeleverd.
 
 ## Doel
 
@@ -20,11 +20,13 @@ Klein houden: twee pagina's plus een inlogscherm.
 - E-mailadres invullen, inloglink per mail (magic link).
 - Na inloggen zonder toegang: melding "Je hebt geen toegang, vraag Ryan."
 
-**Pagina 1: Wat we bouwen**
-1. Uitleg (uit de onepager): wat viehr is, het gebouw met appartementen, de drie rollen, en per module wat AI doet en wat het systeem rekent.
-2. Projectoverzicht: de tabel uit het Word-document (status, gelanceerd bij VIE'ers, AI, Supabase, Netlify, Git). Klik op een project voor doel, opbouw, status, AI en open punten.
-3. viehr per module: status, AI, volgende stap.
-4. Techniek: Supabase-organisaties en projecten, Netlify, overige diensten.
+**Pagina 1: Wat we bouwen** (gebouwd in stap 3)
+1. Intro met de eerstvolgende mijlpaal en het verschil tussen Status en Gelanceerd (`pr_teksten`, sleutel `intro`).
+2. Alle projecten: tabel per categorie (status, gelanceerd bij VIE'ers, AI, Supabase, Netlify, Git). Klik op een project voor doel, opbouw, adres, AI en open punten (`pr_projecten`).
+3. viehr uitgelegd: uit de onepager, het gebouw, de rollen, wat AI doet en begrippen (`pr_teksten`, sleutel `uitleg`), plus de modules (`pr_modules`).
+4. Techniek: Supabase-organisaties en projecten, Netlify, overige diensten (`pr_teksten`, sleutel `techniek`).
+
+Teksten zijn eenvoudige markdown: `###` kopjes, `-` opsommingen, `**vet**`, tabellen met `|`. Alles wordt eerst ge-escaped, HTML in de database doet dus niets.
 
 **Pagina 2: Roadmap**
 1. Mijlpaal: 1 december, Scorecards werkend voor de pilotklant.

@@ -70,14 +70,33 @@
     <main class="inhoud">
       <section id="pagina-bouwen" hidden>
         <h1>Wat we bouwen</h1>
-        <p class="zacht">Inhoud volgt in stap 3.</p>
-        <p class="status" data-status></p>
+        <p class="melding" data-laadfout hidden></p>
+        <div class="tekst intro" data-tekst="intro"><p class="zacht">Inhoud laden...</p></div>
+
+        <nav class="sectiemenu" aria-label="Op deze pagina">
+          <button type="button" data-spring="sectie-projecten">Alle projecten</button>
+          <button type="button" data-spring="sectie-viehr">viehr uitgelegd</button>
+          <button type="button" data-spring="sectie-techniek">Techniek</button>
+        </nav>
+
+        <h2 id="sectie-projecten">Alle projecten</h2>
+        <p class="zacht">Klik op een project voor doel, opbouw en open punten.</p>
+        <div id="projecten"></div>
+
+        <h2 id="sectie-viehr">viehr uitgelegd</h2>
+        <div class="tekst" data-tekst="uitleg"></div>
+        <h3>Per module</h3>
+        <div id="modules"></div>
+
+        <h2 id="sectie-techniek">Techniek</h2>
+        <div class="tekst" data-tekst="techniek"></div>
+
+        <p class="bijgewerkt" data-bijgewerkt></p>
       </section>
 
       <section id="pagina-roadmap" hidden>
         <h1>Roadmap</h1>
         <p class="zacht">Inhoud volgt in stap 4.</p>
-        <p class="status" data-status></p>
       </section>
     </main>
   </div>
