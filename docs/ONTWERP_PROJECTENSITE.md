@@ -1,6 +1,6 @@
 # Ontwerp: VIE Projecten (teamsite)
 
-Stand 30 september 2026. Status: stap 0 t/m 2 live, stap 3 (pagina Wat we bouwen) opgeleverd.
+Stand 30 september 2026. Status: stap 0 t/m 3 live, stap 4 (pagina Roadmap) opgeleverd.
 
 ## Doel
 
@@ -28,11 +28,12 @@ Klein houden: twee pagina's plus een inlogscherm.
 
 Teksten zijn eenvoudige markdown: `###` kopjes, `-` opsommingen, `**vet**`, tabellen met `|`. Alles wordt eerst ge-escaped, HTML in de database doet dus niets.
 
-**Pagina 2: Roadmap**
-1. Mijlpaal: 1 december, Scorecards werkend voor de pilotklant.
-2. Planning per periode tot half december (uit de A4-planning van september): minimaal en als het meezit.
-3. Geparkeerd, met de reden waarom.
-4. Open punten en risico's.
+**Pagina 2: Roadmap** (gebouwd in stap 4)
+1. Intro: mijlpaal, capaciteit en de spelregels (`pr_teksten`, sleutel `roadmap_intro`).
+2. Planning per periode tot half december: dit moet af, als het meezit, klaar als. De huidige periode krijgt het label Nu (`pr_roadmap`, fase `nu`/`volgende`, kolom `soort`).
+3. Net afgerond (`pr_roadmap`, fase `afgerond`).
+4. Bewust geparkeerd, met het moment waarop het weer opgepakt wordt (`pr_roadmap`, fase `geparkeerd`).
+5. Open punten en risico's (`pr_teksten`, sleutel `risicos`).
 
 Onderaan elke pagina: "Laatst bijgewerkt op", automatisch uit de database.
 
@@ -70,7 +71,7 @@ Het principe: **de site is een leeg omhulsel, de inhoud zit achter de database.*
 | `pr_toegang` | account-id, e-mail (kleine letters), naam, actief |
 | `pr_projecten` | naam, korte omschrijving, categorie, status, gelanceerd (ja/nee/n.v.t.), AI (ja/nee plus toelichting), Supabase, Netlify, Git, doel, opbouw, open punten, volgorde, bijgewerkt_op |
 | `pr_modules` | viehr-modules: naam, status, AI, volgende stap, volgorde |
-| `pr_roadmap` | titel, gekoppeld project, periode, fase (nu, volgende, geparkeerd), toelichting, volgorde |
+| `pr_roadmap` | titel, gekoppeld project, periode, fase (nu, volgende, afgerond, geparkeerd), soort (minimaal, meezit, klaar; sinds 002), toelichting, volgorde |
 | `pr_teksten` | vrije tekstblokken per sleutel: uitleg, techniek, mijlpaal, risico's (markdown) |
 
 Toegangscheck in één functie, `pr_heeft_toegang()`. Deze functie krijgt `revoke all ... from public` plus een expliciete grant aan authenticated, zoals afgesproken voor alle nieuwe Postgres-functies. Alle leesregels verwijzen naar die functie.

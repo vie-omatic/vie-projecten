@@ -18,6 +18,24 @@ Geen build-stap. Netlify publiceert `site/` (zie `netlify.toml`). Elke push naar
 Alle inhoud staat in Supabase (project VIE Chatbot), in de tabellen `pr_projecten`, `pr_modules`, `pr_roadmap` en `pr_teksten`.
 Bijwerken gaat via de Table Editor. `bijgewerkt_op` wordt automatisch gezet. Geen deploy nodig.
 
+### Roadmap (`pr_roadmap`)
+
+| Kolom | Waarden | Betekenis |
+|---|---|---|
+| `fase` | `nu`, `volgende`, `afgerond`, `geparkeerd` | Waar het item staat. De periode met `nu` krijgt het rode label |
+| `periode` | vrije tekst, bijv. `Oktober` | Items met dezelfde periode komen in één rij |
+| `soort` | `minimaal`, `meezit`, `klaar` | Kolom in de planning. Leeg laten bij afgerond en geparkeerd |
+| `titel` | tekst | Het item zelf. Bij `klaar` is dit de "Klaar als"-zin |
+| `toelichting` | tekst | Kleine grijze regel eronder. Bij geparkeerd: wanneer het weer opgepakt wordt |
+| `volgorde` | getal | Sortering. Periodes volgen de volgorde van hun eerste item |
+
+Nieuwe maand: zet de oude `nu`-items op `afgerond` (of schuif ze door) en de nieuwe periode op `nu`.
+
+### Teksten (`pr_teksten`)
+
+Sleutels: `intro`, `uitleg`, `techniek` (pagina 1), `roadmap_intro`, `risicos` (pagina 2).
+Eenvoudige opmaak: `###` voor een kopje, `-` voor een opsomming, `**vet**`, tabellen met `|`.
+
 ## Gastenlijst beheren
 
 Iemand toevoegen:

@@ -219,7 +219,8 @@
     Promise.all([
       sb.from('pr_projecten').select('*').order('volgorde'),
       sb.from('pr_modules').select('*').order('volgorde'),
-      sb.from('pr_teksten').select('*').order('volgorde')
+      sb.from('pr_teksten').select('*').order('volgorde'),
+      sb.from('pr_roadmap').select('*').order('volgorde')
     ]).then(function (res) {
       if (mijn !== laadSeq || $('#scherm-app').hidden) return;
       var err = res.filter(function (r) { return r.error; })[0];
@@ -229,7 +230,7 @@
         fout.hidden = false;
         return;
       }
-      var projecten = res[0].data || [], modules = res[1].data || [], teksten = res[2].data || [];
+      var projecten = res[0].data || [], modules = res[1].data || [], teksten = res[2].data || [], roadmap = res[3].data || [];
       var perSleutel = {};
       teksten.forEach(function (t) { perSleutel[t.sleutel] = t; });
       $$('[data-tekst]').forEach(function (el) {
@@ -238,10 +239,12 @@
       });
       renderProjecten(projecten);
       renderModules(modules);
-      var laatst = projecten.concat(modules, teksten).map(function (r) { return r.bijgewerkt_op; }).filter(Boolean).sort().pop();
-      $('[data-bijgewerkt]').textContent = laatst
+      renderRoadmap(roadmap);
+      var laatst = projecten.concat(modules, teksten, roadmap).map(function (r) { return r.bijgewerkt_op; }).filter(Boolean).sort().pop();
+      var tekst = laatst
         ? 'Laatst bijgewerkt op ' + new Date(laatst).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' }) + '.'
         : '';
+      $$('[data-bijgewerkt]').forEach(function (el) { el.textContent = tekst; });
     });
   }
 
@@ -315,6 +318,40 @@
     $('#modules').innerHTML = h + '</tbody></table>';
   }
 
+  // ---------- Roadmap ----------
+  function item(r, metPeriode) {
+    return '<li><strong>' + esc(r.titel) + '</strong>' +
+      (metPeriode && r.periode ? ' <span class="zacht">' + esc(r.periode) + '</span>' : '') +
+      (r.toelichting ? '<span class="sub">' + esc(r.toelichting) + '</span>' : '') + '</li>';
+  }
+
+  function renderRoadmap(rijen) {
+    // Planning: periodes in volgorde van eerste voorkomen, drie kolommen per periode
+    var perioden = [], perPeriode = {};
+    rijen.filter(function (r) { return r.fase === 'nu' || r.fase === 'volgende'; }).forEach(function (r) {
+      var p = r.periode || 'Zonder periode';
+      if (!perPeriode[p]) { perPeriode[p] = { nu: false, minimaal: [], meezit: [], klaar: [] }; perioden.push(p); }
+      if (r.fase === 'nu') perPeriode[p].nu = true;
+      (perPeriode[p][r.soort] || perPeriode[p].minimaal).push(r);
+    });
+    var h = '<table class="tabel planning stapel"><thead><tr><th>Periode</th><th>Dit moet af</th><th>Als het meezit</th><th>Klaar als</th></tr></thead><tbody>';
+    perioden.forEach(function (p) {
+      var d = perPeriode[p];
+      var lijst = function (arr) { return arr.length ? '<ul class="items">' + arr.map(function (r) { return item(r, false); }).join('') + '</ul>' : '<span class="zacht">-</span>'; };
+      h += '<tr' + (d.nu ? ' class="nu"' : '') + '>' +
+        '<td data-label="Periode" class="periode"><span><strong>' + esc(p) + '</strong>' + (d.nu ? ' <span class="badge badge-nu">Nu</span>' : '') + '</span></td>' +
+        '<td data-label="Dit moet af">' + lijst(d.minimaal) + '</td>' +
+        '<td data-label="Als het meezit">' + lijst(d.meezit) + '</td>' +
+        '<td data-label="Klaar als">' + (d.klaar.length ? d.klaar.map(function (r) { return '<p class="klaar">' + esc(r.titel) + '</p>'; }).join('') : '<span class="zacht">-</span>') + '</td></tr>';
+    });
+    $('#planning').innerHTML = perioden.length ? h + '</tbody></table>' : '<p class="zacht">Nog geen planning.</p>';
+
+    var af = rijen.filter(function (r) { return r.fase === 'afgerond'; });
+    $('#afgerond').innerHTML = af.length ? af.map(function (r) { return item(r, true); }).join('') : '<li class="zacht">Nog niets.</li>';
+    var gp = rijen.filter(function (r) { return r.fase === 'geparkeerd'; });
+    $('#geparkeerd').innerHTML = gp.length ? gp.map(function (r) { return item(r, false); }).join('') : '<li class="zacht">Niets geparkeerd.</li>';
+  }
+
   // Sectiemenu: scrollen zonder de #/route te verstoren
   $$('[data-spring]').forEach(function (knop) {
     knop.addEventListener('click', function () {
@@ -328,7 +365,10 @@
     $$('[data-tekst]').forEach(function (el) { el.innerHTML = ''; });
     $('#projecten').innerHTML = '';
     $('#modules').innerHTML = '';
-    $('[data-bijgewerkt]').textContent = '';
+    $('#planning').innerHTML = '';
+    $('#afgerond').innerHTML = '';
+    $('#geparkeerd').innerHTML = '';
+    $$('[data-bijgewerkt]').forEach(function (el) { el.textContent = ''; });
     $('[data-laadfout]').hidden = true;
     $('#gebruiker').textContent = '';
   }

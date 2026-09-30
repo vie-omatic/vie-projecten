@@ -140,6 +140,22 @@ tr.project[aria-expanded="true"] td { background: #FFFCF8; }
 
 .bijgewerkt { margin-top: 3rem; font-size: 0.85rem; color: var(--grijs); }
 
+/* Roadmap */
+.planning td { font-size: 0.92rem; }
+.planning td.periode { width: 150px; }
+.planning td.periode .badge { margin-left: 6px; vertical-align: 1px; }
+.planning tr.nu td { background: #FFF6F7; }
+.planning tr.nu td.periode { box-shadow: inset 3px 0 0 var(--rood); }
+.badge-nu { background: var(--rood); color: var(--wit); }
+.items { margin: 0; padding-left: 1.05rem; }
+.items li { margin-bottom: 0.5rem; }
+.items li:last-child { margin-bottom: 0; }
+.sub { display: block; color: var(--grijs); font-size: 0.85rem; margin-top: 1px; }
+.klaar { margin: 0; font-style: italic; }
+.lijst { list-style: none; margin: 0; padding: 0; background: var(--wit); border: 1px solid var(--lijn); border-radius: 12px; }
+.lijst li { padding: 11px 14px; border-top: 1px solid var(--lijn); }
+.lijst li:first-child { border-top: 0; }
+
 @media (max-width: 760px) {
   .stapel, .stapel thead, .stapel tbody, .stapel tr, .stapel th, .stapel td { display: block; width: 100%; }
   .stapel thead { display: none; }
@@ -157,6 +173,9 @@ tr.project[aria-expanded="true"] td { background: #FFFCF8; }
   .projecten tr.detail td { display: block; padding: 4px 14px 14px; }
   .projecten tr.detail td::before { display: none; }
   .veld { grid-template-columns: 1fr; gap: 2px; }
+  .planning td.periode { width: 100%; }
+  .planning tr.nu { border-color: var(--rood); }
+  .planning tr.nu td.periode { box-shadow: none; }
 }
 
 @media (max-width: 640px) {
